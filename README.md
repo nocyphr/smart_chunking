@@ -81,6 +81,8 @@ INPUT_TRANSCRIPT_PATH='./assets/yt_transcript.txt' # adjust to whatever file you
 
 ## Language of Text
 If you do not work with an english text you may want to switch this model
+
+You will find available SpaCy Models [here](https://spacy.io/usage/models#languages)
 ```bash
 python -m spacy download en_core_web_lg # if you don't use english texts, this needs to be switched out
 ```
