@@ -25,3 +25,6 @@ Model | Total Cost
 --- | ---
 llama-3.3-70b-versatile | 0.09$
 gemma2-9b-it | 0.01$
+mixtral-8x7b-32768 | 0.02$
+gpt-4o-2024-08-06 | 0.38$
+gpt-4o-mini-2024-07-18 | 0.01$
