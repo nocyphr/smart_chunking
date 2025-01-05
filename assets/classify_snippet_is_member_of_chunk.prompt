@@ -1,0 +1,16 @@
+complete the following steps:
+1. look at the sentence and the chunk and classify the sentence as one of the following "APPEND"/"CUT"
+2. ANSWER ONLY WITH ONE OF THE FOLLOWING WORDS:
+    - "APPEND"
+    - "CUT"
+
+if the current sentence references something in the current chunk, reply with "APPEND"
+if we can savely move the current sentence to a standalone paragraph without losing references reply with "CUT"
+
+Please process the following sentence:
+
+**chunk**:
+{chunk}
+
+**sentence**:
+{sentence}

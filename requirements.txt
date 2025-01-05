@@ -1,0 +1,4 @@
+spacy
+llama-index-llms-litellm
+llama-index
+python-dotenv
