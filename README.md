@@ -27,11 +27,11 @@
 
 modelname | chunk_to_sentence_ratio | number_of_chunks | words_per_chunk
 --- | --- | --- | ---
-llama-3.3-70b-versatile | 1:27.5 | 26 | 411.9
-gpt-4o-2024-08-06 | 1:13.5 | 54 | 202.2
-gemma2-9b-it | 1:4.3 | 173 | 63.9
-mixtral-8x7b-32768 | 1:3.0 | 246 | 45.0
-gpt-4o-mini-2024-07-18 | 1:2.8 | 261 | 42.4
+llama-3.3-70b-versatile | 1:11,7 | 26 | 411.9
+gpt-4o-2024-08-06 | 1:5.6 | 54 | 202.2
+gemma2-9b-it | 1:1.8 | 173 | 63.9
+mixtral-8x7b-32768 | 1:1.3 | 246 | 45.0
+gpt-4o-mini-2024-07-18 | 1:1.2 | 261 | 42.4
 
 
 ### old output
