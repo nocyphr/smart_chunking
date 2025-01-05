@@ -12,6 +12,8 @@
   - [The Execution](#the-execution)
 
 
+[Original Article](https://www.linkedin.com/pulse/does-size-matter-ai-model-performance-smart-chunking-guckes-gm0le/)
+
 # Stats
 ## Input
 - [youtube video Source](https://youtu.be/syDpQtORBzg)
