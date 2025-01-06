@@ -1,4 +1,6 @@
 from llama_index.llms.litellm import LiteLLM
+from llama_index.core.agent import ReActAgent
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 from re import search
 import logging
 from typing import List, Optional, Tuple
@@ -11,6 +13,28 @@ class TextChunker:
     def __init__(self, config: LLMConfig, rate_limiter: RateLimiter):
         self._llm = LiteLLM(model=config.model, api_key=config.api_key)
         self._rate_limiter = rate_limiter
+        self._use_agent = config.use_agent
+
+        if self._use_agent:
+            memory = ChatMemoryBuffer.from_defaults(
+                chat_history=[], llm=self._llm)
+            from llama_index.core.tools import FunctionTool
+
+            def return_response(response: str) -> str:
+                """Use this tool to return your final APPEND or CUT decision for the text chunk."""
+                return response
+
+            return_response_tool = FunctionTool.from_defaults(
+                fn=return_response,
+                name="return_response"
+            )
+            self._agent = ReActAgent(
+                tools=[return_response_tool],
+                llm=self._llm,
+                memory=memory,
+                max_iterations=9,
+                verbose=False
+            )
 
     async def categorize_relevance(
         self,
@@ -24,8 +48,13 @@ class TextChunker:
         try:
             await self._rate_limiter.acquire(tokens, progress)
             logging.info(f"Making API call (prompt tokens: {tokens})")
-            response = self._llm.complete(prompt)
-            return self._validate_response(response.text, tokens)
+            if self._use_agent:
+                response = self._agent.chat(prompt)
+                response_text = response.response
+            else:
+                response = self._llm.complete(prompt)
+                response_text = response.text
+            return self._validate_response(response_text, tokens)
         except Exception as e:
             logging.error(f"API call failed: {str(e)}")
             raise
