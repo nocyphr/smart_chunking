@@ -7,6 +7,7 @@ from typing import List, Optional, Tuple
 from config.env import LLMConfig
 from llm.rate_limiter import RateLimiter, count_tokens
 from domain.models import Chunk
+from llama_index.core.tools import FunctionTool
 
 
 class TextChunker:
@@ -16,9 +17,7 @@ class TextChunker:
         self._use_agent = config.use_agent
 
         if self._use_agent:
-            memory = ChatMemoryBuffer.from_defaults(
-                chat_history=[], llm=self._llm)
-            from llama_index.core.tools import FunctionTool
+            memory = ChatMemoryBuffer.from_defaults(chat_history=[], llm=self._llm)
 
             def return_response(response: str) -> str:
                 """Use this tool to return your final APPEND or CUT decision for the text chunk."""
@@ -31,7 +30,7 @@ class TextChunker:
             self._agent = ReActAgent(
                 tools=[return_response_tool],
                 llm=self._llm,
-                memory=memory,
+                memory=None,
                 max_iterations=9,
                 verbose=False
             )
@@ -75,8 +74,6 @@ class TextChunker:
         current_indices = []
 
         for i, sentence in enumerate(sentences, 1):
-            if i % 10 == 0:
-                logging.info(f"Progress: {i}/{len(sentences)} sentences")
 
             if not current_chunk:
                 current_chunk = [sentence]
